@@ -29,7 +29,12 @@ ISWorldObjectContextMenu.onManagingPowerGrid = function(_, status)
     else
         elecShutModifier:setValue(2147483647)
     end
-    currentOptions:sendToServer()
+
+    if not isClient() and not isServer() then
+        currentOptions:updateFromLua()
+    else
+        currentOptions:sendToServer()
+    end
 
 end
 

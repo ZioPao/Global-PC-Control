@@ -11,7 +11,7 @@ PowerGridManager.GetPowerStatus = function()
 
     local options = GetCurrentOptions()
     local elecShutModifierOption = options:getOptionByName("ElecShutModifier")
-    print(elecShutModifierOption:getValue())
+    print("PowerGridManager: elecShutMod => " .. tostring(elecShutModifierOption:getValue()))
     if elecShutModifierOption:getValue() > 0 then
         return true
     end
