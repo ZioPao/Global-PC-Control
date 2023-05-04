@@ -8,6 +8,11 @@ ISWorldObjectContextMenu.onSetupPCTile = function(worldObjects, player)
     if modData.powerGridManager then
         modData.powerGridManager = false
     else
+        if pcTile:getContainer() == nil then
+            local itemContainer = ItemContainer.new("PowerGrid Manager", player:getCurrentSquare(), player)
+            itemContainer:setActive(false)
+            pcTile:setContainer(itemContainer)
+        end
         modData.powerGridManager = true
     end
 
@@ -89,8 +94,19 @@ local function PowerGridManagerOptions(playerNum, context, worldObjects)
         managerMainString = "Enable PowerGrid"
     end
 
+    -- if clickedObject:getSquare() then
+    --     print(moveableObject.name)
+    --     if clickedObject:getContainer() then
+    --         print("Electricity!!")
 
-    if instanceof(clickedObject, "IsoObject") and moveableObject.name == pcTileName and clickedObjectModData.powerGridManager and clickedObject:getSquare() and clickedObject:getSquare():haveElectricity() and (playerInv:containsTypeRecurse(cdItemName) or adminCheck) then
+    --     else
+    --         print("No electricity here")
+
+    --     end
+
+    -- end
+    
+    if instanceof(clickedObject, "IsoObject") and moveableObject.name == pcTileName and clickedObjectModData.powerGridManager and clickedObject:getContainer() and clickedObject:getContainer():isPowered() and (playerInv:containsTypeRecurse(cdItemName) or adminCheck) then
         context:addOption(managerMainString, worldObjects, ISWorldObjectContextMenu.onManagingPowerGrid, powerGridStatus)
     end
 end
