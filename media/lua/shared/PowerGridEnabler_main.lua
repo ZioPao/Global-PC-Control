@@ -1,4 +1,4 @@
-PowerGridManager = {}
+GridControlManager = {}
 
 
 local function GetCurrentOptions()
@@ -7,15 +7,16 @@ local function GetCurrentOptions()
     return currentOptions
 end
 
-PowerGridManager.GetPowerStatus = function()
+
+
+GridControlManager.GetStatus = function(option)
 
     local options = GetCurrentOptions()
-    local elecShutModifierOption = options:getOptionByName("ElecShutModifier")
-    print("PowerGridManager: elecShutMod => " .. tostring(elecShutModifierOption:getValue()))
-    if elecShutModifierOption:getValue() > 0 then
+    local moidifier = options:getOptionByName(option)
+    print("PowerGridManager: ".. option .." => " .. tostring(moidifier:getValue()))
+    if moidifier:getValue() > 0 then
         return true
     end
 
     return false
- 
 end

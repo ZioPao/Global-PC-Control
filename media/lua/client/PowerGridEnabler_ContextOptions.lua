@@ -23,16 +23,19 @@ ISWorldObjectContextMenu.onSetupPCTile = function(worldObjects, player)
 end
 
 
-ISWorldObjectContextMenu.onManagingPowerGrid = function(_, status)
+ISWorldObjectContextMenu.onManagingGrid = function(_, status, optionName)
 
     -- Enable it or disable it
     local currentOptions = SandboxOptions.new()
     currentOptions:copyValuesFrom(getSandboxOptions())
-    local elecShutModifier = currentOptions:getOptionByName("ElecShutModifier")
+    local gridModifier = currentOptions:getOptionByName(optionName)
+
+
+
     if status then
-        elecShutModifier:setValue(-1)
+        gridModifier:setValue(-1)
     else
-        elecShutModifier:setValue(2147483647)
+        gridModifier:setValue(2147483647)
     end
 
     if not isClient() and not isServer() then
@@ -86,28 +89,21 @@ local function PowerGridManagerOptions(playerNum, context, worldObjects)
     
     --*************************--
 
-    local managerMainString
-    local powerGridStatus = PowerGridManager.GetPowerStatus()
-    if powerGridStatus then
-        managerMainString = "Disable PowerGrid"
-    else
-        managerMainString = "Enable PowerGrid"
-    end
+    local powerGridOption
+    local powerGridStatus = GridControlManager.GetStatus("ElecShutModifier")
+    if powerGridStatus then powerGridOption = "Disable Power Grid" else powerGridOption = "Enable Power Grid" end
 
-    -- if clickedObject:getSquare() then
-    --     print(moveableObject.name)
-    --     if clickedObject:getContainer() then
-    --         print("Electricity!!")
+    local waterGridOption
+    local waterGridStatus = GridControlManager.GetStatus("WaterShutModifier")
+    if waterGridStatus then waterGridOption = "Disable Water Grid" else waterGridOption = "Enable Water Grid" end
 
-    --     else
-    --         print("No electricity here")
 
-    --     end
 
-    -- end
     
     if instanceof(clickedObject, "IsoObject") and moveableObject.name == pcTileName and clickedObjectModData.powerGridManager and clickedObject:getContainer() and clickedObject:getContainer():isPowered() and (playerInv:containsTypeRecurse(cdItemName) or adminCheck) then
-        context:addOption(managerMainString, worldObjects, ISWorldObjectContextMenu.onManagingPowerGrid, powerGridStatus)
+        context:addOption(powerGridOption, worldObjects, ISWorldObjectContextMenu.onManagingGrid, powerGridStatus, "ElecShutModifier")
+        context:addOption(waterGridOption, worldObjects, ISWorldObjectContextMenu.onManagingGrid, waterGridStatus, "WaterShutModifier")
+
     end
 end
 
