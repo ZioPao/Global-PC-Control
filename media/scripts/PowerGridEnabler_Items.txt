@@ -1,0 +1,12 @@
+module PowerGridEnabler {
+    imports {Base}
+
+    item PowerGridFixer
+    {
+        DisplayCategory = Electronics,
+        Type            = Normal,
+        Icon            = CD,
+        Weight          = 0.1,
+        WorldStaticModel = Disk,
+    }
+}
