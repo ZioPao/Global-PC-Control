@@ -1,12 +1,13 @@
-module PowerGridEnabler {
-    imports {Base}
+module Base {
 
     item PowerGridFixer
     {
         DisplayCategory = Electronics,
-        Type            = Normal,
-        Icon            = CD,
-        Weight          = 0.1,
+        Weight	=	0.4,
+        Type	=	Normal,
+        DisplayName	=	Power Grid Fixer,
+        Icon	=	Disc,
         WorldStaticModel = Disk,
     }
+
 }
