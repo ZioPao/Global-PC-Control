@@ -85,7 +85,7 @@ local function PowerGridManagerOptions(playerNum, context, worldObjects)
     end
 
 
-    if instanceof(clickedObject, "IsoObject") and moveableObject.name == pcTileName and clickedObjectModData.powerGridManager and clickedObject:getGridSquare() and clickedObject:getGridSquare():haveElectricity() and (playerInv:containsTypeRecurse(cdItemName) or adminCheck) then
+    if instanceof(clickedObject, "IsoObject") and moveableObject.name == pcTileName and clickedObjectModData.powerGridManager and clickedObject:getSquare() and clickedObject:getSquare():haveElectricity() and (playerInv:containsTypeRecurse(cdItemName) or adminCheck) then
         context:addOption(managerMainString, worldObjects, ISWorldObjectContextMenu.onManagingPowerGrid, powerGridStatus)
     end
 end
